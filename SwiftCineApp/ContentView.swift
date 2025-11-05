@@ -11,11 +11,10 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             NavigationLink("Aller aux détails") {
-                ContentView()
+                MovieView()
             }
             .navigationTitle("Movie Cine App")
         }
-        
     }
 }
 
