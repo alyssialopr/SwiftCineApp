@@ -15,6 +15,7 @@ struct ContentView: View {
             }
             .navigationTitle("Movie Cine App")
         }
+        
     }
 }
 
