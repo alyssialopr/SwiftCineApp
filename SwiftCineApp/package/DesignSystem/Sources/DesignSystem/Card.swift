@@ -10,6 +10,10 @@ import SwiftUI
 struct CustomCard<Content: View>: View {
     let content: Content
     
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 120479c845b6e16073eb41777cffb1fedde2ab93
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
@@ -26,6 +30,13 @@ struct CustomCard<Content: View>: View {
                 x: 0,
                 y: 4
             )
+<<<<<<< HEAD
+=======
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.gray.opacity(0.1), lineWidth: 0.5)
+            )
+>>>>>>> 120479c845b6e16073eb41777cffb1fedde2ab93
     }
 }
 
@@ -52,4 +63,8 @@ struct CustomCard<Content: View>: View {
         }
     }
     .padding()
+<<<<<<< HEAD
+=======
+    .background(Color(.secondarySystemBackground))
+>>>>>>> 120479c845b6e16073eb41777cffb1fedde2ab93
 }
