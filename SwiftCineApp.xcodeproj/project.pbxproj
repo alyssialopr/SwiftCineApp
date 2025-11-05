@@ -6,14 +6,36 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		779D01E92EBB4B600023A764 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 779D01E82EBB4B600023A764 /* DesignSystem */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		779D01D02EBB48C10023A764 /* SwiftCineApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftCineApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		779D01EB2EBB4B650023A764 /* Exceptions for "package" folder in "SwiftCineApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				/Users/ap221698/Documents/SwiftCineApp/package/DesignSystem,
+			);
+			target = 779D01CF2EBB48C10023A764 /* SwiftCineApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		779D01D22EBB48C10023A764 /* SwiftCineApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SwiftCineApp;
+			sourceTree = "<group>";
+		};
+		779D01E62EBB4B480023A764 /* package */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				779D01EB2EBB4B650023A764 /* Exceptions for "package" folder in "SwiftCineApp" target */,
+			);
+			path = package;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				779D01E92EBB4B600023A764 /* DesignSystem in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,6 +55,7 @@
 		779D01C72EBB48C10023A764 = {
 			isa = PBXGroup;
 			children = (
+				779D01E62EBB4B480023A764 /* package */,
 				779D01D22EBB48C10023A764 /* SwiftCineApp */,
 				779D01D12EBB48C10023A764 /* Products */,
 			);
@@ -62,9 +86,11 @@
 			);
 			fileSystemSynchronizedGroups = (
 				779D01D22EBB48C10023A764 /* SwiftCineApp */,
+				779D01E62EBB4B480023A764 /* package */,
 			);
 			name = SwiftCineApp;
 			packageProductDependencies = (
+				779D01E82EBB4B600023A764 /* DesignSystem */,
 			);
 			productName = SwiftCineApp;
 			productReference = 779D01D02EBB48C10023A764 /* SwiftCineApp.app */;
@@ -94,6 +120,9 @@
 			);
 			mainGroup = 779D01C72EBB48C10023A764;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				779D01E72EBB4B600023A764 /* XCLocalSwiftPackageReference "../DesignSystem" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 779D01D12EBB48C10023A764 /* Products */;
 			projectDirPath = "";
@@ -335,6 +364,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		779D01E72EBB4B600023A764 /* XCLocalSwiftPackageReference "../DesignSystem" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../DesignSystem;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		779D01E82EBB4B600023A764 /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 779D01C82EBB48C10023A764 /* Project object */;
 }
