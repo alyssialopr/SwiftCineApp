@@ -20,11 +20,6 @@
 			path = SwiftCineApp;
 			sourceTree = "<group>";
 		};
-		779D01E62EBB4B480023A764 /* package */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = package;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +37,6 @@
 		779D01C72EBB48C10023A764 = {
 			isa = PBXGroup;
 			children = (
-				779D01E62EBB4B480023A764 /* package */,
 				779D01D22EBB48C10023A764 /* SwiftCineApp */,
 				779D01D12EBB48C10023A764 /* Products */,
 			);
@@ -73,7 +67,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				779D01D22EBB48C10023A764 /* SwiftCineApp */,
-				779D01E62EBB4B480023A764 /* package */,
 			);
 			name = SwiftCineApp;
 			packageProductDependencies = (
