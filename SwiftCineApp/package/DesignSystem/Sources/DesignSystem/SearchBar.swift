@@ -6,11 +6,16 @@
 //
 import SwiftUI
 
-struct SearchBar: View {
+public struct SearchBar: View {
     @State private var showSearchField = false
     @State private var searchText = ""
+    
+    public init(showSearchField: Bool = false, searchText: String = "") {
+        self.showSearchField = showSearchField
+        self.searchText = searchText
+    }
 
-    var body: some View {
+    public var body: some View {
         HStack(spacing: 8) {
             Button(action: {
                 withAnimation(.easeInOut(duration: 0.2)) {

@@ -6,19 +6,30 @@
 //
 	
 import SwiftUI
+import DesignSystem
 
 struct ContentView: View {
+    @State private var showSearchField = false
+    @State private var searchText = ""
+
     var body: some View {
         NavigationStack {
-            NavigationLink("Aller aux détails") {
-                ContentView()
+            VStack(spacing: 16) {
+                SearchBar(showSearchField: showSearchField, searchText: searchText)
+                
+                NavigationLink("Aller aux détails") {
+                    ContentView()
+                }
+
+                Spacer()
             }
-            .navigationTitle("Movie Cine App")
+            .padding()
+            .navigationTitle("Movie Cine App") 
         }
-        
     }
 }
 
 #Preview {
     ContentView()
 }
+
