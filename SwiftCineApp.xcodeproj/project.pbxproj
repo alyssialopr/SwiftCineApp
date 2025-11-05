@@ -15,13 +15,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		779D01EB2EBB4B650023A764 /* Exceptions for "package" folder in "SwiftCineApp" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				/Users/ap221698/Documents/SwiftCineApp/package/DesignSystem,
-			);
-			target = 779D01CF2EBB48C10023A764 /* SwiftCineApp */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
