@@ -24,7 +24,7 @@ struct ContentView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle("Movie Cine App") 
+            .navigationTitle("Movie Cine App")
         }
     }
 }
