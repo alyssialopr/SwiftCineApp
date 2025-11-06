@@ -7,15 +7,24 @@
 
 import SwiftUI
 
-
-struct BookmarkButton: View {
-    @State private var isBookmarked = false
-    var action: ((Bool) -> Void)? = nil
+public struct BookmarkButton: View {
     
-    var body: some View {
+    var movieTitle: String
+    
+    @State private var isBookmarked: Bool
+    
+    var action: ((Bool, String) -> Void)? = nil
+    
+    public init(movieTitle: String, isBookmarked: Bool = false, action: ((Bool, String) -> Void)? = nil) {
+        self.movieTitle = movieTitle
+        _isBookmarked = State(initialValue: isBookmarked)
+        self.action = action
+    }
+    
+    public var body: some View {
         Button(action: {
             isBookmarked.toggle()
-            action?(isBookmarked)
+            action?(isBookmarked, movieTitle)
         }) {
             Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
                 .foregroundColor(isBookmarked ? Color("Dark", bundle: .module) : .secondary)
@@ -23,11 +32,5 @@ struct BookmarkButton: View {
                 .animation(.easeInOut(duration: 0.1), value: isBookmarked)
         }
         .buttonStyle(.plain)
-    }
-}
-
-#Preview {
-    BookmarkButton { newValue in
-        print("Bookmarked:", newValue)
     }
 }

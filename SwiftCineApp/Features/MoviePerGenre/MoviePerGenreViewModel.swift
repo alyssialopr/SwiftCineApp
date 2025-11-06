@@ -52,7 +52,6 @@ class MoviePerGenreViewModel: ObservableObject {
                 defer { group.leave() }
                 
                 if let error = error {
-                    print("❌ Erreur pour \(title): \(error.localizedDescription)")
                     return
                 }
                 

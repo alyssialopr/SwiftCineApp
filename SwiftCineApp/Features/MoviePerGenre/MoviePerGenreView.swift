@@ -14,13 +14,11 @@ struct MoviePerGenreView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            // Titre du genre
             Text(genre)
                 .font(.title2)
                 .fontWeight(.bold)
                 .padding(.horizontal)
             
-            // Scroll horizontal pour les films
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
                     ForEach(viewModel.movies, id: \.title) { movie in

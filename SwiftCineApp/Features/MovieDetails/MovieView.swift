@@ -12,6 +12,7 @@ import DesignSystem
 struct MovieView: View {
     let movieTitle: String
     @StateObject private var viewModel = MovieViewModel()
+    @EnvironmentObject var bookmarkManager: BookmarkManager
     
     var body: some View {
         GeometryReader { geometry in
@@ -36,7 +37,7 @@ struct MovieView: View {
                 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 16) {
-
+                        
                         Spacer().frame(height: 400)
                         
                         if viewModel.isLoading {
@@ -46,7 +47,7 @@ struct MovieView: View {
                                 .padding(.top, 100)
                         } else if let movie = viewModel.movie {
                             VStack(alignment: .leading, spacing: 46) {
-                                // En tete
+                                
                                 VStack(alignment: .leading, spacing: 6) {
                                     Text(movie.title)
                                         .font(.largeTitle)
@@ -56,9 +57,17 @@ struct MovieView: View {
                                         Text(movie.runtime)
                                         Text("•")
                                         Text(movie.released)
+                                        BookmarkButton(
+                                            movieTitle: movie.title,
+                                            isBookmarked: bookmarkManager.isBookmarked(title: movie.title)
+                                        ) { isMarked, title in
+                                            bookmarkManager.toggleBookmark(title: title, isBookmarked: isMarked)
+                                        }
                                     }
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
+                                    
+                                    
                                 }
                                 
                                 Divider()
@@ -67,7 +76,7 @@ struct MovieView: View {
                                     HStack {
                                         Score(score: Double(movie.imdbRating) ?? 0)
                                         Text(movie.genre)
-                                           .font(.headline)
+                                            .font(.headline)
                                     }
                                     
                                     Text("Acteurs : \(movie.actors)")
@@ -99,6 +108,10 @@ struct MovieView: View {
             .onAppear {
                 viewModel.fetchMovie(title: movieTitle)
             }
-                    }
-                }
-            }
+        }
+    }
+}
+
+#Preview {
+    MovieView(movieTitle: "B")
+}

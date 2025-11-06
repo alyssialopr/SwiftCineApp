@@ -14,7 +14,7 @@ public struct FavoriteButton: View {
     public init(action: ((Bool) -> Void)? = nil) {
         self.action = action
     }
-
+    
     public var body: some View {
         Button(action: {
             withAnimation(.easeInOut(duration: 0.2)) {

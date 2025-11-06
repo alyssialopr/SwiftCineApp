@@ -1,3 +1,9 @@
+//
+//  Untitled.swift
+//  DesignSystem
+//
+//  Created by LORSOLD PRADON Alyssia on 05/11/2025.
+//
 import SwiftUI
 
 public struct FeedButton: View {
@@ -7,7 +13,7 @@ public struct FeedButton: View {
     public init (action: ((Bool) -> Void)? = nil) {
         self.action = action
     }
-
+    
     public var body: some View {
         Button(action: {
             withAnimation(.easeInOut(duration: 0.2)) {

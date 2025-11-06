@@ -10,6 +10,7 @@ import DesignSystem
 
 @main
 struct SwiftCineAppApp: App {
+    @StateObject var bookmarkManager = BookmarkManager()
     var body: some Scene {
         WindowGroup {
             TabView {
@@ -18,13 +19,14 @@ struct SwiftCineAppApp: App {
                         FeedButton()
                         Text("Feed")
                     }
-
+                
                 FavoritesView()
                     .tabItem {
                         FavoriteButton()
                         Text("Favorites")
                     }
             }
+            .environmentObject(bookmarkManager)
         }
     }
 }

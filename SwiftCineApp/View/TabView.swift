@@ -16,7 +16,7 @@ struct NavbarSystem: View {
                     FeedButton()
                     Text("Feed")
                 }
-
+            
             FavoritesView()
                 .tabItem {
                     FavoriteButton()
