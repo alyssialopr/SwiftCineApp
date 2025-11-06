@@ -15,7 +15,6 @@ class FeedViewModel: ObservableObject {
     
     private let apiKey = "cd2f67c6"
     
-    // Quelques titres de films "populaires" à tirer au hasard
     private let movieTitles = [
         "Inception",
         "Interstellar",
@@ -40,7 +39,6 @@ class FeedViewModel: ObservableObject {
         errorMessage = nil
         movies = []
         
-        // Sélectionne 5 titres aléatoires
         let randomTitles = movieTitles.shuffled().prefix(8)
         
         let group = DispatchGroup()

@@ -11,23 +11,30 @@ struct FeedView: View {
     @StateObject private var viewModel = FeedViewModel()
     
     var body: some View {
-        NavigationView {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
-                    ForEach(viewModel.movies, id: \.title) { movie in
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 16) {
+                ForEach(viewModel.movies, id: \.title) { movie in
+                    NavigationLink(destination: MovieView(movieTitle: movie.title)) {
                         VStack {
-                            AsyncImage(url: URL(string: movie.poster)) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 150, height: 220)
-                                    .clipped()
-                                    .cornerRadius(10)
-                            } placeholder: {
-                                Rectangle()
-                                    .fill(Color.gray.opacity(0.3))
-                                    .frame(width: 150, height: 220)
-                                    .cornerRadius(10)
+                            AsyncImage(url: URL(string: movie.poster)) { phase in
+                                if let image = phase.image {
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 150, height: 220)
+                                        .clipped()
+                                        .cornerRadius(10)
+                                } else if phase.error != nil {
+                                    Rectangle()
+                                        .fill(Color.red.opacity(0.3))
+                                        .frame(width: 150, height: 220)
+                                        .cornerRadius(10)
+                                } else {
+                                    Rectangle()
+                                        .fill(Color.gray.opacity(0.3))
+                                        .frame(width: 150, height: 220)
+                                        .cornerRadius(10)
+                                }
                             }
                             
                             Text(movie.title)
@@ -38,10 +45,10 @@ struct FeedView: View {
                                 .padding(.top, 5)
                         }
                     }
+                    .buttonStyle(.plain)
                 }
-                .padding(.horizontal)
             }
-            .navigationTitle("🎬 Recents")
+            .padding(.horizontal)
         }
         .onAppear {
             viewModel.fetchPopularMovies()
@@ -52,4 +59,3 @@ struct FeedView: View {
 #Preview {
     FeedView()
 }
-

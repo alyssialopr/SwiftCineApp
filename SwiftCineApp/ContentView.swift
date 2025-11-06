@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var showSearchField = false
     @State private var searchText = ""
     @State private var navigateToMovie = false
-
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
@@ -26,11 +26,6 @@ struct ContentView: View {
                 }
                 .padding(.top)
                 
-                Spacer()
-                
-                Text("Bienvenue dans Movie Cine App 🎬")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
                 FeedView()
                 Spacer()
             }

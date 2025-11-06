@@ -17,7 +17,6 @@ struct MovieView: View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
                 
-                // Image
                 if let movie = viewModel.movie {
                     AsyncImage(url: URL(string: movie.poster)) { image in
                         image
@@ -35,7 +34,6 @@ struct MovieView: View {
                         .frame(height: 500)
                 }
                 
-                // Détail du film
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 16) {
 
@@ -65,7 +63,6 @@ struct MovieView: View {
                                 
                                 Divider()
                                 
-                                // Détails
                                 VStack(alignment: .leading, spacing: 26) {
                                     HStack {
                                         Score(score: Double(movie.imdbRating) ?? 0)
@@ -88,11 +85,6 @@ struct MovieView: View {
                                 RoundedRectangle(cornerRadius: 32)
                                     .fill(Color(.systemBackground))
                             )
-                        } else if let error = viewModel.errorMessage {
-                            Text("Erreur : \(error)")
-                                .foregroundColor(.red)
-                                .multilineTextAlignment(.center)
-                                .padding(.top, 120)
                         } else {
                             Text("Aucune donnée pour ce film.")
                                 .foregroundColor(.gray)
