@@ -23,3 +23,7 @@ Le projet a été conçu pour présenter une architecture SwiftUI propre, en int
 Ce projet a été réalisé en collaboration par :
 * [Anthony LOPES](https://github.com/AnthxnyL)
 * [Alyssia LORSOLD PRADON](https://github.com/alyssialopr)
+
+
+### Note (Selon Alyssia et Anthony)
+14,5/20
