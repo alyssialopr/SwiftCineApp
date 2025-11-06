@@ -11,23 +11,33 @@ import DesignSystem
 struct ContentView: View {
     @State private var showSearchField = false
     @State private var searchText = ""
+    @State private var navigateToMovie = false
 
     var body: some View {
         NavigationStack {
-            NavigationLink("Aller aux détails") {
-                MovieView()
-                VStack(spacing: 16) {
-                    SearchBar(showSearchField: showSearchField, searchText: searchText)
-                    
-                    NavigationLink("Aller aux détails") {
-                        ContentView()
+            VStack(spacing: 20) {
+                SearchBar(
+                    showSearchField: $showSearchField,
+                    searchText: $searchText
+                ) {
+                    if !searchText.isEmpty {
+                        navigateToMovie = true
                     }
-                    
-                    Spacer()
                 }
-                .padding()
-                .navigationTitle("Movie Cine App")
+                .padding(.top)
+                
+                Spacer()
+                
+                Text("Bienvenue dans Movie Cine App 🎬")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+                
+                Spacer()
             }
+            .navigationDestination(isPresented: $navigateToMovie) {
+                MovieView(movieTitle: searchText)
+            }
+            .navigationTitle("Movie Cine App")
         }
     }
 }

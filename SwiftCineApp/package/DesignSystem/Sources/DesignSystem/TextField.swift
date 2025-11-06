@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct CustomTextField: View {
-    var icon: String? = nil        // Nom SF Symbol optionnel
+    var icon: String? = nil
     var placeholder: String
     @Binding var text: String
-    
+    var onCommit: (() -> Void)? = nil   // 🔥 Nouveau paramètre
+
     var body: some View {
         HStack(spacing: 8) {
             if let icon = icon {
                 Image(systemName: icon)
                     .foregroundColor(.gray)
             }
-            
+
             TextField(placeholder, text: $text)
                 .textFieldStyle(.plain)
                 .foregroundColor(.primary)
+                .onSubmit {               // 🔥 Déclenche l’action “Entrée”
+                    onCommit?()
+                }
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 10)
@@ -40,4 +44,3 @@ struct CustomTextField: View {
     }
     .padding()
 }
-

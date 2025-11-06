@@ -1,10 +1,17 @@
+//
+//  FavoriteButton.swift
+//  DesignSystem
+//
+//  Created by LORSOLD PRADON Alyssia on 06/11/2025.
+//
+
 import SwiftUI
 
-public struct FeedButton: View {
+public struct FavoriteButton: View {
     @State private var isCliqued = false
     var action: ((Bool) -> Void)? = nil
     
-    public init (action: ((Bool) -> Void)? = nil) {
+    public init(action: ((Bool) -> Void)? = nil) {
         self.action = action
     }
 
@@ -16,12 +23,12 @@ public struct FeedButton: View {
             action?(isCliqued)
         }) {
             HStack {
-                Image(systemName: isCliqued ? "book.pages.fill" : "book.pages")
+                Image(systemName: isCliqued ? "bookmark.fill" : "bookmark")
                     .foregroundColor(isCliqued ? Color("Dark", bundle: .module) : .secondary)
                     .animation(.easeInOut(duration: 0.1), value: isCliqued)
                 
                 if isCliqued {
-                    Text("Feed")
+                    Text("Favorites")
                         .transition(.opacity.combined(with: .move(edge: .leading)))
                 }
             }
@@ -34,7 +41,7 @@ public struct FeedButton: View {
 }
 
 #Preview {
-    FeedButton { newValue in
+    FavoriteButton { newValue in
         print("Bookmarked:", newValue)
     }
 }

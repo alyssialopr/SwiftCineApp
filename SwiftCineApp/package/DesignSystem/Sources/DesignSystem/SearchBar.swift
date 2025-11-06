@@ -7,12 +7,18 @@
 import SwiftUI
 
 public struct SearchBar: View {
-    @State private var showSearchField = false
-    @State private var searchText = ""
-    
-    public init(showSearchField: Bool = false, searchText: String = "") {
-        self.showSearchField = showSearchField
-        self.searchText = searchText
+    @Binding var showSearchField: Bool
+    @Binding var searchText: String
+    var onCommit: (() -> Void)? = nil
+
+    public init(
+        showSearchField: Binding<Bool>,
+        searchText: Binding<String>,
+        onCommit: (() -> Void)? = nil
+    ) {
+        self._showSearchField = showSearchField
+        self._searchText = searchText
+        self.onCommit = onCommit
     }
 
     public var body: some View {
@@ -28,8 +34,15 @@ public struct SearchBar: View {
             }
 
             if showSearchField {
-                CustomTextField(icon: nil, placeholder: "Rechercher...", text: $searchText)
-                    .transition(.move(edge: .trailing).combined(with: .opacity))
+                CustomTextField(
+                    icon: nil,
+                    placeholder: "Rechercher un film...",
+                    text: $searchText
+                )
+                .onSubmit {
+                    onCommit?()
+                }
+                .transition(.move(edge: .trailing).combined(with: .opacity))
             }
         }
         .padding(.horizontal)
@@ -37,5 +50,8 @@ public struct SearchBar: View {
 }
 
 #Preview {
-    SearchBar()
+    SearchBar(
+        showSearchField: .constant(true),
+        searchText: .constant("Inception")
+    )
 }

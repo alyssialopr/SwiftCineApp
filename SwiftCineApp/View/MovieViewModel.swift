@@ -1,58 +1,49 @@
 //
-//  MovieViewModel.swift
+//  FeedViewModel.swift
 //  SwiftCineApp
 //
-//  Created by LOPES Anthony on 05/11/2025.
+//  Created by LORSOLD PRADON Alyssia on 06/11/2025.
 //
 
-
-import Foundation
 import SwiftUI
+import Combine
 
 class MovieViewModel: ObservableObject {
     @Published var movie: Movie?
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    private let apiKey = "cd2f67c6"
+    private var cancellables = Set<AnyCancellable>()
     
     func fetchMovie(title: String) {
-        guard !title.isEmpty else { return }
-        
-        isLoading = true
-        errorMessage = nil
-        movie = nil
-        
-        let titleEncoded = title.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? title
-        let urlString = "https://www.omdbapi.com/?t=\(titleEncoded)&apikey=\(apiKey)"
-        
-        guard let url = URL(string: urlString) else {
-            self.isLoading = false
-            self.errorMessage = "URL invalide"
+        guard let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: "https://www.omdbapi.com/?t=\(encodedTitle)&apikey=cd2f67c6") else {
+            errorMessage = "Titre invalide."
             return
         }
         
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            DispatchQueue.main.async {
-                self.isLoading = false
-                
-                if let error = error {
-                    self.errorMessage = error.localizedDescription
-                    return
+        movie = nil
+        errorMessage = nil
+        isLoading = true
+        
+        URLSession.shared.dataTaskPublisher(for: url)
+            .tryMap { data, response -> Data in
+                guard let httpResponse = response as? HTTPURLResponse,
+                      httpResponse.statusCode == 200 else {
+                    throw URLError(.badServerResponse)
                 }
-                
-                guard let data = data else {
-                    self.errorMessage = "Données introuvables"
-                    return
-                }
-                
-                do {
-                    let movie = try JSONDecoder().decode(Movie.self, from: data)
-                    self.movie = movie
-                } catch {
-                    self.errorMessage = "Erreur de décodage: \(error.localizedDescription)"
-                }
+                return data
             }
-        }.resume()
+            .decode(type: Movie.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                self.isLoading = false
+                if case .failure(let error) = completion {
+                    self.errorMessage = error.localizedDescription
+                }
+            }, receiveValue: { movie in
+                self.movie = movie
+            })
+            .store(in: &cancellables)
     }
 }
