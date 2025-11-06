@@ -6,12 +6,25 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 @main
 struct SwiftCineAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                ContentView()
+                    .tabItem {
+                        FeedButton()
+                        Text("Feed")
+                    }
+
+                FavoritesView()
+                    .tabItem {
+                        FavoriteButton()
+                        Text("Favorites")
+                    }
+            }
         }
     }
 }
