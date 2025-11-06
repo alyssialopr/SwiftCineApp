@@ -41,7 +41,7 @@ struct FeedView: View {
                 }
                 .padding(.horizontal)
             }
-            .navigationTitle("🎬 Feed des Films")
+            .navigationTitle("🎬 Recents")
         }
         .onAppear {
             viewModel.fetchPopularMovies()

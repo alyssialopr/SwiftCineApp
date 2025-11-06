@@ -14,83 +14,99 @@ struct MovieView: View {
     @StateObject private var viewModel = MovieViewModel()
     
     var body: some View {
-        VStack {
-           if viewModel.isLoading {
-               ProgressView("Chargement...")
-                   .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                   .scaleEffect(1.5)
-           } else if let movie = viewModel.movie {
-                ScrollView {
-                    VStack(spacing: 20) {
-                        // 🎞 Poster du film
-                        AsyncImage(url: URL(string: movie.poster)) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .frame(maxWidth: .infinity, maxHeight: 300)
-                                .clipped()
-                                .cornerRadius(20)
-                                .shadow(radius: 5)
-                        } placeholder: {
-                            Color.gray.opacity(0.3)
-                                .frame(height: 300)
-                                .cornerRadius(20)
-                        }
-                        .padding(.horizontal)
-                        .padding(.top)
+        GeometryReader { geometry in
+            ZStack(alignment: .top) {
+                
+                // Image
+                if let movie = viewModel.movie {
+                    AsyncImage(url: URL(string: movie.poster)) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: geometry.size.width,
+                                   height: 500)
+                            .clipped()
+                    } placeholder: {
+                        Color.gray.opacity(0.3)
+                            .frame(height: 500)
+                    }
+                } else {
+                    Color.black.opacity(0.05)
+                        .frame(height: 500)
+                }
+                
+                // Détail du film
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 16) {
+
+                        Spacer().frame(height: 400)
                         
-                        // 🧾 Informations détaillées
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(movie.title)
-                                .font(.title)
-                                .bold()
-                            
-                            HStack {
-                                Text(movie.runtime)
-                                Text("•")
-                                Text(movie.released)
+                        if viewModel.isLoading {
+                            ProgressView("Chargement...")
+                                .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                                .scaleEffect(1.5)
+                                .padding(.top, 100)
+                        } else if let movie = viewModel.movie {
+                            VStack(alignment: .leading, spacing: 46) {
+                                // En tete
+                                VStack(alignment: .leading, spacing: 6) {
+                                    Text(movie.title)
+                                        .font(.largeTitle)
+                                        .fontWeight(.bold)
+                                    
+                                    HStack(spacing: 10) {
+                                        Text(movie.runtime)
+                                        Text("•")
+                                        Text(movie.released)
+                                    }
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                                }
+                                
+                                Divider()
+                                
+                                // Détails
+                                VStack(alignment: .leading, spacing: 26) {
+                                    HStack {
+                                        Score(score: Double(movie.imdbRating) ?? 0)
+                                        Text(movie.genre)
+                                           .font(.headline)
+                                    }
+                                    
+                                    Text("Acteurs : \(movie.actors)")
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                    
+                                    Text(movie.plot)
+                                        .font(.body)
+                                        .padding(.top, 8)
+                                }
                             }
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            
-                            HStack {
-                                Score(score: Double(movie.imdbRating) ?? 0)
-                                Text(movie.genre)
-                            }
-                            .font(.headline)
-                            
-                            Text("Acteurs : \(movie.actors)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            
-                            Text(movie.plot)
-                                .font(.body)
-                                .padding(.top, 8)
+                            .padding(24)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                RoundedRectangle(cornerRadius: 32)
+                                    .fill(Color(.systemBackground))
+                            )
+                        } else if let error = viewModel.errorMessage {
+                            Text("Erreur : \(error)")
+                                .foregroundColor(.red)
+                                .multilineTextAlignment(.center)
+                                .padding(.top, 120)
+                        } else {
+                            Text("Aucune donnée pour ce film.")
+                                .foregroundColor(.gray)
+                                .padding(.top, 120)
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color.white)
-                        .cornerRadius(20)
-                        .shadow(radius: 5)
-                        .padding(.horizontal)
-                        .padding(.bottom, 50)
                     }
                 }
-                .scrollIndicators(.hidden)
-                   } else if let error = viewModel.errorMessage {
-                           Text("Erreur: \(error)")
-                               .foregroundColor(.red)
-                               .padding()
-                       } else {
-                           Text("Aucune donnée pour ce film.")
-                               .foregroundColor(.gray)
-                               .padding()
-                       }
-                   }
-                   .onAppear {
-                       viewModel.fetchMovie(title: movieTitle)
-                   }
-                   .navigationTitle(movieTitle)
-                   .navigationBarTitleDisplayMode(.inline)
-    }
-}
+            }
+            .ignoresSafeArea(edges: .top)
+            .navigationTitle(movieTitle)
+            .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                viewModel.fetchMovie(title: movieTitle)
+            }
+                    }
+                }
+            }

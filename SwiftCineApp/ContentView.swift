@@ -31,7 +31,7 @@ struct ContentView: View {
                 Text("Bienvenue dans Movie Cine App 🎬")
                     .font(.headline)
                     .foregroundColor(.secondary)
-                
+                FeedView()
                 Spacer()
             }
             .navigationDestination(isPresented: $navigateToMovie) {

@@ -30,7 +30,9 @@ class FeedViewModel: ObservableObject {
         "Fight Club",
         "Barbie",
         "The Lord of the Rings",
-        "Wicked"
+        "Wicked",
+        "The Devil Wears Prada",
+        "Joker"
     ]
     
     func fetchPopularMovies() {
@@ -39,7 +41,7 @@ class FeedViewModel: ObservableObject {
         movies = []
         
         // Sélectionne 5 titres aléatoires
-        let randomTitles = movieTitles.shuffled().prefix(5)
+        let randomTitles = movieTitles.shuffled().prefix(8)
         
         let group = DispatchGroup()
         var fetchedMovies: [Movie] = []
